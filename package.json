@@ -1,0 +1,33 @@
+{
+  "name": "@opengeometry/openinterface",
+  "version": "0.0.1",
+  "description": "Web UI System based on Braun's Design ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpenGeometry-io/OpenInterface.git"
+  },
+  "keywords": [
+    "Web",
+    "UI",
+    "Braun",
+    "Design",
+    "Mechanical"
+  ],
+  "author": "Vishwajeet Mane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OpenGeometry-io/OpenInterface/issues"
+  },
+  "homepage": "https://github.com/OpenGeometry-io/OpenInterface#readme",
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "vite": "^6.2.2"
+  }
+}
