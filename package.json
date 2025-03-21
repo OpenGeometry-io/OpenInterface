@@ -3,8 +3,12 @@
   "version": "0.0.1",
   "description": "Web UI System based on Braun's Design ",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-public": "cpy \"public/**/*\" dist/public/ --parents",
+    "build-core": "npm run clean && rollup -c && npm run copy-public",
+    "clean": "rimraf dist",
     "dev": "vite"
   },
   "repository": {
@@ -28,6 +32,14 @@
     "lit": "^3.2.1"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "cpy": "^11.1.0",
+    "rimraf": "^6.0.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.2",
     "vite": "^6.2.2"
   }
 }

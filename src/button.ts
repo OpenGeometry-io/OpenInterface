@@ -1,5 +1,6 @@
 import {html, css, LitElement} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
+import { PRESSED_SOUND } from './sound-map';
 
 type ButtonIndicatorPosition = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
 
@@ -22,7 +23,7 @@ export class OGButton extends LitElement {
     .button-indicator {
       display: none;
       position: absolute;
-      background: #000;
+      background: #d1ccbf;
       width: 10px;
       height: 10px;
       border-radius: 50%;
@@ -34,15 +35,20 @@ export class OGButton extends LitElement {
       cursor: pointer;
       padding: 0;
     }
+
+    .button-container-press {
+      box-shadow: rgb(255, 255, 255) 0.5px 0.5px 1px inset, rgba(0, 0, 0, 0.15) -0.5px -0.5px 1px inset, rgba(0, 0, 0, 0.2) 0.222px 0.222px 0.314px -0.5px, rgba(0, 0, 0, 0.18) 0.605px 0.605px 0.856px -1px, rgba(0, 0, 0, 0.25) 1.329px 1.329px 1.88px -1.5px, rgba(0, 0, 0, 0.1) 2.95px 2.95px 4.172px -2px, rgba(0, 0, 0, 0.15) 2.5px 2.5px 3px -2.5px, rgba(0, 0, 0, 0.1) -0.5px -0.5px 0px 0px;
+    }
   `;
 
   // Variables
   private _indicatorPosition: ButtonIndicatorPosition = 'topLeft';
   private _label: string = '';
   private _isClickyButton: boolean = false;
-  private _indicatorColor: string = '#000';
+  private _indicatorColor: string = '#6ce48a';
   private _indicatorSize: number = 10;
   private _active: boolean = false;
+  clickSound: HTMLAudioElement;
 
   // Properties
   @property({type: String})
@@ -102,6 +108,13 @@ export class OGButton extends LitElement {
     return this._indicatorSize;
   }
 
+  constructor() {
+    super();
+    this.clickSound = new Audio(PRESSED_SOUND);
+    this.clickSound.volume = 0.1;
+    this.clickSound.load();
+  }
+
   // Lifecycle - Every Modification to the DOM should be done here, e.g. setting up event listeners, blocking the shadow root, etc.
   firstUpdated() {
     const container = this.shadowRoot?.querySelector('.button-container') as HTMLElement;
@@ -122,17 +135,32 @@ export class OGButton extends LitElement {
       button.style.margin = `0 0 0 0`;
       console.log(marginOptionString);
       button.style.cssText = marginOptionString;
-
-      container.addEventListener('click', () => {
-        if (!this._active) {
-          indicator.style.backgroundColor = 'red';
-          this._active = true;
-        } else {
-          indicator.style.backgroundColor = this.indicatorColor;
-          this._active = false;
-        }
-      });
     }
+
+    container.addEventListener('click', () => {
+      // play sound
+      this.clickSound.play();
+
+      if (!this.isClickyButton) {
+        container.classList.add('button-container-press');
+        setTimeout(() => {
+          container.classList.remove('button-container-press');
+        }
+        , 100);
+
+        return;
+      }
+      
+      if (!this._active) {
+        indicator.style.backgroundColor = this.indicatorColor;
+        this._active = true;
+        container.classList.add('button-container-press');
+      } else {
+        indicator.style.backgroundColor = '#d1ccbf';
+        this._active = false;
+        container.classList.remove('button-container-press');
+      }
+    });
   }
 
   private getButtonPlacementStyle() {
