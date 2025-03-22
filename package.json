@@ -1,6 +1,6 @@
 {
   "name": "@opengeometry/openinterface",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web UI System based on Braun's Design ",
   "main": "index.js",
   "type": "module",
