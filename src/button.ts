@@ -24,8 +24,8 @@ export class OGButton extends LitElement {
       display: none;
       position: absolute;
       background: #d1ccbf;
-      width: 10px;
-      height: 10px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
     }
 
@@ -46,7 +46,7 @@ export class OGButton extends LitElement {
   private _label: string = '';
   private _isClickyButton: boolean = false;
   private _indicatorColor: string = '#6ce48a';
-  private _indicatorSize: number = 10;
+  private _indicatorSize: number = 7;
   private _active: boolean = false;
   clickSound: HTMLAudioElement;
 
